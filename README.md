@@ -15,6 +15,6 @@ docker import - cloudera/quickstart:latest < cloudera-quickstart-vm-*-docker/*.t
 ```
 
 ```
-docker run --hostname=quickstart.cloudera --privileged=true -t -i [OPTIONS] [IMAGE] /usr/bin/docker-quickstart
+docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 cloudera/quickstart:latest /usr/bin/docker-quickstart
 ```
 
