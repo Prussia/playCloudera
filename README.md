@@ -1,5 +1,9 @@
 # playCloudera
 
+## Get Started
+- [How to setup Cloudera Quickstart Virtual Machine](https://community.cloudera.com/t5/Hadoop-101-Training-Quickstart/How-to-setup-Cloudera-Quickstart-Virtual-Machine/ta-p/35056)
+
+
 ## [CCA Spark and Hadoop Developer Exam (CCA175)](http://cn.cloudera.com/more/training/certification/cca-spark.html)
 
 ## [Cloudera Developer Training for Spark and Hadoop](https://www.cloudera.com/more/training/courses/developer-training-for-spark-and-hadoop.html)
