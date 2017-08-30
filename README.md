@@ -19,7 +19,7 @@ docker run --name=cloudera --hostname=quickstart.cloudera --privileged=true -t -
 ```
 Cloudera Manager is not started by default. To see options for starting Cloudera Manager, run the following command:
 
-/home/cloudera/cloudera-manager
+/home/cloudera/cloudera-manager --express --force
 
 ### [QuickStart VM Administrative Information](https://www.cloudera.com/documentation/enterprise/5-7-x/topics/quickstart_vm_administrative_information.html#xd_583c10bfdbd326ba-3ca24a24-13d80143249--7f88)
 Once you launch the VM, you are automatically logged in as the cloudera user. The account details are:
