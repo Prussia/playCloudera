@@ -9,6 +9,12 @@
 
 ### Container
 - [Cloudera Docker Container](https://www.cloudera.com/documentation/enterprise/5-6-x/topics/quickstart_docker_container.html)
--
--
+```
+tar xzf cloudera-quickstart-vm-*-docker.tar.gz
+docker import - cloudera/quickstart:latest < cloudera-quickstart-vm-*-docker/*.tar
+```
+
+```
+docker run --hostname=quickstart.cloudera --privileged=true -t -i [OPTIONS] [IMAGE] /usr/bin/docker-quickstart
+```
 
