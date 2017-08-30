@@ -17,4 +17,6 @@ docker import - cloudera/quickstart:latest < cloudera-quickstart-vm-*-docker/*.t
 ```
 docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 cloudera/quickstart:latest /usr/bin/docker-quickstart
 ```
+Cloudera Manager is not started by default. To see options for starting Cloudera Manager, run the following command:
 
+/home/cloudera/cloudera-manager
