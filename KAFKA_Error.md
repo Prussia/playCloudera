@@ -17,3 +17,4 @@ processes tab, and then seeing what errors are given in the logs.
 ### [Cloudera Distribution of Apache Kafka Overview](https://www.cloudera.com/documentation/kafka/latest/topics/kafka.html)
 ### [Using Kafka](https://www.cloudera.com/documentation/kafka/latest/topics/kafka_using.html)
 ### [Cloudera Distribution of Apache Kafka Versions](https://www.cloudera.com/documentation/kafka/latest/topics/kafka_packaging.html#concept_tm5_gx3_dp)
+### [List of Pages in Category Kafka](https://www.cloudera.com/documentation/kafka/latest/categories/hub_kafka.html)
