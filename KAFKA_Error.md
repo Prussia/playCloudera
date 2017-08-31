@@ -14,3 +14,4 @@ first respectively). I'd suggest clicking on those services, looking at the
 processes tab, and then seeing what errors are given in the logs.
 
 ## [Install Kafka](https://www.cloudera.com/documentation/kafka/latest/topics/kafka_installing.html)
+### [Cloudera Distribution of Apache Kafka Versions](https://www.cloudera.com/documentation/kafka/latest/topics/kafka_packaging.html#concept_tm5_gx3_dp)
