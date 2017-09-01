@@ -1,6 +1,6 @@
 # playCloudera
 
-## Official Documents
+## [Official Documents](http://www.cloudera.com/documentation/cdh/5-1-x/CDH5-Security-Guide/cdh5sg_sentry_service.html)
 ## Get Started
 - [How to setup Cloudera Quickstart Virtual Machine](https://community.cloudera.com/t5/Hadoop-101-Training-Quickstart/How-to-setup-Cloudera-Quickstart-Virtual-Machine/ta-p/35056)
 ### VM Virtual Box
