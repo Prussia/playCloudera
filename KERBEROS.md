@@ -9,3 +9,4 @@
 - [Tickets](https://technet.microsoft.com/en-us/library/cc961966.aspx)
 - [Delegation of Authentication](https://technet.microsoft.com/en-us/library/cc961964.aspx)
 
+## [Sentry Webserver Kerberos Authentication and Authorization Configuration](https://cwiki.apache.org/confluence/display/SENTRY/Sentry+Webserver+Kerberos+Authentication+and+Authorization+Configuration)
