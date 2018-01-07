@@ -1,0 +1,283 @@
+***********************************************************************************
+Welcome to the Impala shell.
+(Impala Shell v2.10.0-cdh5.13.0 (2511805) built on Wed Oct  4 10:55:37 PDT 2017)
+
+You can change the Impala daemon that you're connected to by using the CONNECT
+command.To see how Impala will plan to run your query without actually executing
+it, use the EXPLAIN command. You can change the level of detail in the EXPLAIN
+output by setting the EXPLAIN_LEVEL query option.
+***********************************************************************************
+[quickstart.cloudera:21000] > CREATE EXTERNAL TABLE sfmta_raw (
+                            >   revision int,
+                            >   report_time string,
+                            >   vehicle_tag int,
+                            >   longitude float,
+                            >   latitude float,
+                            >   speed float,
+                            >   heading float
+                            > )
+                            > ROW FORMAT DELIMITED
+                            > FIELDS TERMINATED BY ','
+                            > LOCATION '/sfmta/'
+                            > TBLPROPERTIES ('skip.header.line.count'='1');
+Query: create EXTERNAL TABLE sfmta_raw (
+  revision int,
+  report_time string,
+  vehicle_tag int,
+  longitude float,
+  latitude float,
+  speed float,
+  heading float
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LOCATION '/sfmta/'
+TBLPROPERTIES ('skip.header.line.count'='1')
+WARNINGS: Impala does not have READ_WRITE access to path 'hdfs://quickstart.cloudera:8020/'
+
+Fetched 0 row(s) in 0.71s
+[quickstart.cloudera:21000] > exit
+                            > ;
+Goodbye demo
+Connection to quickstart.cloudera closed.
+Prussias-MacBook-Pro:demo-vm-setup prussia$ ssh demo@quickstart.cloudera -t impala-shell
+demo@quickstart.cloudera's password: 
+Starting Impala Shell without Kerberos authentication
+Connected to quickstart.cloudera:21000
+Server version: impalad version 2.10.0-cdh5.13.0 RELEASE (build 2511805f1eaa991df1460276c7e9f19d819cd4e4)
+***********************************************************************************
+Welcome to the Impala shell.
+(Impala Shell v2.10.0-cdh5.13.0 (2511805) built on Wed Oct  4 10:55:37 PDT 2017)
+
+You can run a single query from the command line using the '-q' option.
+***********************************************************************************
+[quickstart.cloudera:21000] > SELECT count(*) FROM sfmta_raw;
+Query: select count(*) FROM sfmta_raw
+Query submitted at: 2018-01-07 05:41:34 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=be448e33434a5d64:c7cedff000000000
++----------+
+| count(*) |
++----------+
+| 859086   |
++----------+
+Fetched 1 row(s) in 5.56s
+[quickstart.cloudera:21000] > CREATE TABLE sfmta
+                            > PRIMARY KEY (report_time, vehicle_tag)
+                            > PARTITION BY HASH(report_time) PARTITIONS 8
+                            > STORED AS KUDU
+                            > AS SELECT
+                            >   UNIX_TIMESTAMP(report_time,  'MM/dd/yyyy HH:mm:ss') AS report_time,
+                            >   vehicle_tag,
+                            >   longitude,
+                            >   latitude,
+                            >   speed,
+                            >   heading
+                            > FROM sfmta_raw;
+Query: create TABLE sfmta
+PRIMARY KEY (report_time, vehicle_tag)
+PARTITION BY HASH(report_time) PARTITIONS 8
+STORED AS KUDU
+AS SELECT
+  UNIX_TIMESTAMP(report_time,  'MM/dd/yyyy HH:mm:ss') AS report_time,
+  vehicle_tag,
+  longitude,
+  latitude,
+  speed,
+  heading
+FROM sfmta_raw
++------------------------+
+| summary                |
++------------------------+
+| Inserted 843448 row(s) |
++------------------------+
+WARNINGS: Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Error converting column: 2 to INT
+Error parsing row: file: hdfs://quickstart.cloudera:8020/sfmta/data.csv, before offset: 57401568
+Row with null value violates nullability constraint on table 'impala::default.sfmta'. (1 of 15638 similar)
+
+
+Fetched 1 row(s) in 7.45s
+[quickstart.cloudera:21000] > SELECT count(*) FROM sfmta;
+Query: select count(*) FROM sfmta
+Query submitted at: 2018-01-07 05:43:46 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=e7443a63e1b83aba:90a0fb9500000000
++----------+
+| count(*) |
++----------+
+| 843448   |
++----------+
+Fetched 1 row(s) in 5.52s
+[quickstart.cloudera:21000] > SELECT count(*) FROM sfmta_raw;
+Query: select count(*) FROM sfmta_raw
+Query submitted at: 2018-01-07 05:44:21 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=ec4f98e956c3745e:e6b3e40500000000
++----------+
+| count(*) |
++----------+
+| 859086   |
++----------+
+Fetched 1 row(s) in 0.13s
+[quickstart.cloudera:21000] > SELECT * FROM sfmta ORDER BY speed DESC LIMIT 1；
+                            > ；
+                            > 
+                            > 
+                            > 
+                            > 
+                            > ；
+                            > 
+                            > 
+                            > 
+                            > 
+                            > 
+                            > ;
+Query: select * FROM sfmta ORDER BY speed DESC LIMIT 1；
+；
+；
+Query submitted at: 2018-01-07 05:59:53 (Coordinator: http://quickstart.cloudera:25000)
+ERROR: AnalysisException: Syntax error in line 1:
+select * FROM sfmta ORDER BY speed DESC LIMIT 1；
+                                               ^
+Encountered: Unexpected character
+Expected: AND, AS, ASC, BETWEEN, BLOCK_SIZE, COMMENT, COMPRESSION, CROSS, DEFAULT, DESC, DIV, ELSE, ENCODING, END, FOLLOWING, FROM, FULL, GROUP, IGNORE, HAVING, ILIKE, IN, INNER, IREGEXP, IS, JOIN, LEFT, LIKE, LIMIT, NOT, NULL, NULLS, OFFSET, OR, ORDER, PRECEDING, PRIMARY, RANGE, REGEXP, RIGHT, RLIKE, ROWS, THEN, UNION, WHEN, WHERE, COMMA, IDENTIFIER
+
+CAUSED BY: Exception: Syntax error
+
+[quickstart.cloudera:21000] > SELECT * FROM sfmta ORDER BY speed DESC LIMIT 1;
+Query: select * FROM sfmta ORDER BY speed DESC LIMIT 1
+Query submitted at: 2018-01-07 06:00:00 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=d942ae7007ea93b7:83d5ce9600000000
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+| report_time | vehicle_tag | longitude          | latitude          | speed             | heading |
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+| 1357022342  | 5411        | -122.3968811035156 | 37.76665878295898 | 68.33300018310547 | 82      |
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+Fetched 1 row(s) in 0.31s
+[quickstart.cloudera:21000] > SELECT * FROM sfmta ORDER BY speed DESC LIMIT 1;
+Query: select * FROM sfmta ORDER BY speed DESC LIMIT 1
+Query submitted at: 2018-01-07 06:00:07 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=e4ac81223dfb997:3b3f553e00000000
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+| report_time | vehicle_tag | longitude          | latitude          | speed             | heading |
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+| 1357022342  | 5411        | -122.3968811035156 | 37.76665878295898 | 68.33300018310547 | 82      |
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+Fetched 1 row(s) in 0.25s
+[quickstart.cloudera:21000] > SELECT * FROM sfmta ORDER BY speed DESC LIMIT 1;
+Query: select * FROM sfmta ORDER BY speed DESC LIMIT 1
+Query submitted at: 2018-01-07 06:00:09 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=dd48a8b99956a51b:7f8eb89300000000
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+| report_time | vehicle_tag | longitude          | latitude          | speed             | heading |
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+| 1357022342  | 5411        | -122.3968811035156 | 37.76665878295898 | 68.33300018310547 | 82      |
++-------------+-------------+--------------------+-------------------+-------------------+---------+
+Fetched 1 row(s) in 0.25s
+[quickstart.cloudera:21000] > DELETE FROM sfmta WHERE vehicle_tag = '5411';
+Query: delete FROM sfmta WHERE vehicle_tag = '5411'
+Query submitted at: 2018-01-07 06:00:23 (Coordinator: http://quickstart.cloudera:25000)
+ERROR: AnalysisException: operands of type INT and STRING are not comparable: vehicle_tag = '5411'
+
+[quickstart.cloudera:21000] > DELETE FROM sfmta WHERE vehicle_tag = 5411
+                            > ;
+Query: delete FROM sfmta WHERE vehicle_tag = 5411
+Query submitted at: 2018-01-07 06:00:34 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=6447bb5e3be4b7d2:46edb11600000000
+Modified 1169 row(s), 0 row error(s) in 0.24s
+[quickstart.cloudera:21000] >
